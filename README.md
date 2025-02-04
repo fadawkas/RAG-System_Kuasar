@@ -40,7 +40,7 @@ The system is composed of the following components:
    docker-compose up --build
    ```
 
-3. **FastAPI Server**: The FastAPI application will be running on `http://127.0.0.1:8000`. You can test the endpoints through the Swagger UI available at `http://127.0.0.1:8000/docs`.
+3. **FastAPI Server**: The FastAPI application will be running on `http://localhost:8000`. You can test the endpoints through the Swagger UI available at `http://localhost:8000/docs`.
 
 ### API Usage
 
@@ -64,7 +64,7 @@ cfbf1ae5-5aa8-40fa-a23f-f2534a0635dd
 
   ```bash
   curl -X 'POST' \
-    'http://127.0.0.1:8000/upload/' \
+    'http://localhost:8000/upload/' \
     -H 'X-API-KEY: API-KEY' \
     -F 'file=@/path/to/your/document.pdf'
   ```
@@ -82,7 +82,7 @@ cfbf1ae5-5aa8-40fa-a23f-f2534a0635dd
 
   ```bash
   curl -X 'POST' \
-    'http://127.0.0.1:8000/question/?question=What%20can%20you%20tell%20me%20about%20FastAPI' \
+    'http://localhost:8000/question/?question=What%20can%20you%20tell%20me%20about%20FastAPI' \
     -H 'X-API-KEY: API-KEY'
   ```
 
