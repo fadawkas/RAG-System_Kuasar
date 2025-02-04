@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  # FastAPI Service (rag-service)
+  rag-service:
+    build:
+      context: ./  # Path to your main directory where main.py and Dockerfile are located
+    container_name: rag_service
+    ports:
+      - "8000:8000"  # Expose FastAPI app on port 8000
+    volumes:
+      - ./uploaded_docs:/app/uploaded_docs  # Mount uploaded_docs folder
+    depends_on:
+      - ollama
+      - vector-store
+    environment:
+      - API_KEY=cfbf1ae5-5aa8-40fa-a23f-f2534a0635dd  # API Key for authentication
+    networks:
+      - tutorial-net
+
+  # Vector Store Service (Chroma)
+  vector-store:
+    image: chromadb/chroma
+    container_name: vector_store
+    environment:
+      - CHROMA_DB_PATH=/db  # Path to store Chroma database
+    volumes:
+      - ./db:/db  # Mount database directory for persistent storage
+    networks:
+      - tutorial-net
+    ports:
+      - "8001:8001" 
+
+  # Ollama Service
+  ollama:
+    build: ./ollama  # Path to the Ollama directory for pulling the llama3 model
+    container_name: ollama
+    ports:
+      - "11434:11434"  # Expose Ollama API port for communication
+    volumes:
+      - ~/.ollama:/root/.ollama  # Mount Ollama's model directory to persist model
+    networks:
+      - tutorial-net
+    entrypoint: ["/bin/bash", "/pull-llama3.sh"]  # Pulling the llama3 model when the container starts
+
+networks:
+  tutorial-net:
+    driver: bridge
+
+volumes:
+  tutorial-vol:
+    driver: local

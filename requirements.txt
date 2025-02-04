@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pdfminer.six
+langchain
+chromadb
+chroma
+ollama
+langchain_community
+sentence-transformers
+python-multipart
+requests
